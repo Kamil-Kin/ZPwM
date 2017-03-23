@@ -66,7 +66,6 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
         }
     }
     return FALSE;
-
   case WM_CLOSE:    //komunikat zamkniêcia okienka
     DestroyWindow(hwndDlg);
     PostQuitMessage(0);
@@ -74,7 +73,6 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
   }
   return FALSE;
 }
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow) 
 {
   srand(time(NULL));
@@ -82,13 +80,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine,
   numer = liczba;
   HWND hwndMainWindow = CreateDialog(hInstance, MAKEINTRESOURCE(IDD_MAINVIEW), NULL, DialogProc);
   ShowWindow(hwndMainWindow, iCmdShow); 
-
   MSG msg = {};
   while (GetMessage(&msg, NULL, 0, 0)) 
   {
     TranslateMessage(&msg);
     DispatchMessage(&msg);
   }
-
   return 0;
 }
