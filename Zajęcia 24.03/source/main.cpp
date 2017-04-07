@@ -1,49 +1,131 @@
-#include <Windows.h>
+﻿#include <Windows.h>
 #include "res.h"
 
-bool isGameOn = false;
-bool isFirstPlayerTurn = true;
+bool isGameOn = false;  //czy gra została zaczęta
+bool isFirstPlayerTurn = true;  //czyj ruch
+bool isWithPC = false;  //czy gra z komputerem
 
-/*bool CheckWinningCondition() 
+int tab[9] = { 234, 45, 124, 547, 67, 34, 678, 768, 435 };
+
+bool CheckWinningCondition(HWND hwndDlg, HWND lParam, int znak)
 {
+  HWND hwndButton1 = GetDlgItem(hwndDlg, IDC_BUTTON1);
+  HWND hwndButton2 = GetDlgItem(hwndDlg, IDC_BUTTON2);
+  HWND hwndButton3 = GetDlgItem(hwndDlg, IDC_BUTTON3);
+  HWND hwndButton4 = GetDlgItem(hwndDlg, IDC_BUTTON4);
+  HWND hwndButton5 = GetDlgItem(hwndDlg, IDC_BUTTON5);
+  HWND hwndButton6 = GetDlgItem(hwndDlg, IDC_BUTTON6);
+  HWND hwndButton7 = GetDlgItem(hwndDlg, IDC_BUTTON7);
+  HWND hwndButton8 = GetDlgItem(hwndDlg, IDC_BUTTON8);
+  HWND hwndButton9 = GetDlgItem(hwndDlg, IDC_BUTTON9);
+  if (znak == 0) 
+  {
+    if (hwndButton1 == lParam) tab[0] = 0;
+    if (hwndButton2 == lParam) tab[1] = 0;
+    if (hwndButton3 == lParam) tab[2] = 0;
+    if (hwndButton4 == lParam) tab[3] = 0;
+    if (hwndButton5 == lParam) tab[4] = 0;
+    if (hwndButton6 == lParam) tab[5] = 0;
+    if (hwndButton7 == lParam) tab[6] = 0;
+    if (hwndButton8 == lParam) tab[7] = 0;
+    if (hwndButton9 == lParam) tab[8] = 0;
+  }
+  else if (znak == 1) 
+  {
+    if (hwndButton1 == lParam) tab[0] = 1;
+    if (hwndButton2 == lParam) tab[1] = 1;
+    if (hwndButton3 == lParam) tab[2] = 1;
+    if (hwndButton4 == lParam) tab[3] = 1;
+    if (hwndButton5 == lParam) tab[4] = 1;
+    if (hwndButton6 == lParam) tab[5] = 1;
+    if (hwndButton7 == lParam) tab[6] = 1;
+    if (hwndButton8 == lParam) tab[7] = 1;
+    if (hwndButton9 == lParam) tab[8] = 1;
+  }
 
-}*/
-INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam) 
-{ 
+    //for (int i = 0; i < 3; i++) 
+    //{
+      if (tab[0] == tab[1] && tab[1] == tab[2] 
+        || tab[3] == tab[4] && tab[4] == tab[5]
+        || tab[6] == tab[7] && tab[7] == tab[8] 
+        || tab[0] == tab[3] && tab[3] == tab[6] 
+        || tab[1] == tab[4] && tab[4] == tab[7] 
+        || tab[2] == tab[5] && tab[5] == tab[8] 
+        || tab[0] == tab[4] && tab[4] == tab[8] 
+        || tab[2] == tab[4] && tab[4] == tab[6])
+      /*if (((tab[3 * i] == tab[3 * i + 1]) && (tab[3 * i + 1] == tab[3 * i + 2])) ||
+        ((tab[i] == tab[i + 3]) && (tab[i + 3] == tab[i + 6])) ||
+        ((tab[0] == tab[4] && tab[0] == tab[8])) || ((tab[2] == tab[4] && tab[2] == tab[6])))*/
+        return true;
+      else return false;
+    //}
+  return false;
+}
+
+INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
   switch (uMsg)
   {
   case WM_COMMAND:
     switch (HIWORD(wParam))
     {
-    case BN_CLICKED:    //zdarzenie klikni�cia
+    case BN_CLICKED:    //zdarzenie klikniêcia
       switch (LOWORD(wParam))
       {
-      case IDC_BUTTON1:   //konkretny button
-      case IDC_BUTTON2:
-      case IDC_BUTTON3:
-      case IDC_BUTTON4:
-      case IDC_BUTTON5:
-      case IDC_BUTTON6:
-      case IDC_BUTTON7:
-      case IDC_BUTTON8:
+        //konkretny button
+      case IDC_BUTTON1:  case IDC_BUTTON2:  case IDC_BUTTON3:  case IDC_BUTTON4:
+      case IDC_BUTTON5:  case IDC_BUTTON6:  case IDC_BUTTON7:  case IDC_BUTTON8:
+
       case IDC_BUTTON9:
-        if (isGameOn == true) 
+        if (isGameOn == true)
         {
-        //isFirstPlayerTurn
+          //isFirstPlayerTurn
           HWND hwndButton = (HWND)lParam;
-          if (GetWindowTextLength(hwndButton) == 0) 
+
+          if (GetWindowTextLength(hwndButton) == 0)
           {
             CHAR szText[500];
- 
-            if (isFirstPlayerTurn == true) 
+            //Zaczyna gracz X
+            if (isFirstPlayerTurn == true)
             {
               CheckRadioButton(hwndDlg, IDC_RADIO1, IDC_RADIO2, IDC_RADIO1);
               wsprintf(szText, "X");
+              //czy nastąpiła wygrana gracza X
+              if (CheckWinningCondition(hwndDlg, hwndButton, 0)) 
+              {
+                HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
+                CHAR szText[500];
+                wsprintf(szText, "Wygrana X,a by zacząć od nowa, wciśnij start");
+                SetWindowText(hwndStatic, szText);
+
+                isGameOn = false;
+
+                HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
+                wsprintf(szText, "Start");
+                SetWindowText(hwndButton_start, szText);
+                for (int i = 0; i < 9; i++) { tab[i] = 10 + i; }
+              }
             }
+            //Ruch gracza O
             else
             {
               CheckRadioButton(hwndDlg, IDC_RADIO1, IDC_RADIO2, IDC_RADIO2);
               wsprintf(szText, "O");
+              //czy nastapiła wygrana gracza O
+              if (CheckWinningCondition(hwndDlg, hwndButton, 1))
+              {
+                HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
+                HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
+                CHAR szText[500];
+                wsprintf(szText, "Wygrana O, aby zacząć od nowa, wciśnij start");
+                SetWindowText(hwndStatic, szText);
+
+                isGameOn = false;
+
+                wsprintf(szText, "Start");
+                SetWindowText(hwndButton_start, szText);
+                for (int i = 0; i < 9; i++) { tab[i] = 10 + i; }
+              }
             }
             SetWindowText(hwndButton, szText);
             isFirstPlayerTurn = !isFirstPlayerTurn;
@@ -52,13 +134,14 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
         }
         return TRUE;
 
-      case IDC_BUTTON10:
+      case IDC_BUTTON_START:
         if (isGameOn == false)
         {
           isGameOn = true;
           HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
+          //HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
           CHAR szText[500];
-          wsprintf(szText, "Start");
+          wsprintf(szText, "gra się toczy");
           SetWindowText(hwndStatic, szText);
           for (int i = 0; i < 9; i++)
           {
@@ -67,25 +150,28 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
             wsprintf(szText, "");
             SetWindowText(hwndButton, szText);
           }
-          HWND hwndButton10 = GetDlgItem(hwndDlg, IDC_BUTTON10);
-          //char szText[500];
+          HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
           wsprintf(szText, "Stop");
-          SetWindowText(hwndButton10, szText);
+          SetWindowText(hwndButton_start, szText);
         }
-        else 
+        else
         {
           isGameOn = false;
-          HWND hwndButton10 = GetDlgItem(hwndDlg, IDC_BUTTON10);
+          HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
+          HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);          
           CHAR szText[500];
+          wsprintf(szText, "gra wstrzymana");
+          SetWindowText(hwndStatic, szText);   
           wsprintf(szText, "Start");
-          SetWindowText(hwndButton10, szText);
+          SetWindowText(hwndButton_start, szText);
+          for (int i = 0; i < 9; i++) { tab[i] = 10 + i;}
         }
-       
       }
       return TRUE;
     }
     return FALSE;
-  case WM_CLOSE:    //komunikat zamkni�cia okienka
+
+  case WM_CLOSE:    //komunikat zamknięcia okienka
     DestroyWindow(hwndDlg);
     PostQuitMessage(0);
     return TRUE;
