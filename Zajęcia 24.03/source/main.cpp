@@ -3,10 +3,12 @@
 
 bool isGameOn = false;  //czy gra została zaczęta
 bool isFirstPlayerTurn = true;  //czyj ruch
+bool isDraw = false;  //czy remis
+int lRuch;  //liczba wykonanych ruchów
 bool isWithPC = false;  //czy gra z komputerem
 
 int tab[9] = { 234, 45, 124, 547, 67, 34, 678, 768, 435 };
-
+//Funkcja określająca warunki wygrania rozgrywki
 bool CheckWinningCondition(HWND hwndDlg, HWND lParam, int znak)
 {
   HWND hwndButton1 = GetDlgItem(hwndDlg, IDC_BUTTON1);
@@ -43,24 +45,37 @@ bool CheckWinningCondition(HWND hwndDlg, HWND lParam, int znak)
     if (hwndButton9 == lParam) tab[8] = 1;
   }
 
-    //for (int i = 0; i < 3; i++) 
-    //{
-      if (tab[0] == tab[1] && tab[1] == tab[2] 
-        || tab[3] == tab[4] && tab[4] == tab[5]
-        || tab[6] == tab[7] && tab[7] == tab[8] 
-        || tab[0] == tab[3] && tab[3] == tab[6] 
-        || tab[1] == tab[4] && tab[4] == tab[7] 
-        || tab[2] == tab[5] && tab[5] == tab[8] 
-        || tab[0] == tab[4] && tab[4] == tab[8] 
-        || tab[2] == tab[4] && tab[4] == tab[6])
+  if (tab[0] == tab[1] && tab[1] == tab[2] 
+      || tab[3] == tab[4] && tab[4] == tab[5]
+      || tab[6] == tab[7] && tab[7] == tab[8] 
+      || tab[0] == tab[3] && tab[3] == tab[6] 
+      || tab[1] == tab[4] && tab[4] == tab[7] 
+      || tab[2] == tab[5] && tab[5] == tab[8] 
+      || tab[0] == tab[4] && tab[4] == tab[8] 
+      || tab[2] == tab[4] && tab[4] == tab[6])
       /*if (((tab[3 * i] == tab[3 * i + 1]) && (tab[3 * i + 1] == tab[3 * i + 2])) ||
         ((tab[i] == tab[i + 3]) && (tab[i + 3] == tab[i + 6])) ||
         ((tab[0] == tab[4] && tab[0] == tab[8])) || ((tab[2] == tab[4] && tab[2] == tab[6])))*/
-        return true;
-      else return false;
-    //}
+      return true;
+  else
+    {
+      lRuch++;
+      if (lRuch == 9) isDraw = true;
+      return false;
+    }
   return false;
 }
+//Funkcja czyszcząca planszę po zakończeniu rozgrywki
+/*void Clean_field(HWND hwndDlg) 
+{
+  for (int i = 0; i < 9; i++)
+  {
+    HWND hwndButton = GetDlgItem(hwndDlg, IDC_BUTTON1 + i);
+    CHAR szText[500];
+    wsprintf(szText, "");
+    SetWindowText(hwndButton, szText);
+  }
+}*/
 
 INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -95,7 +110,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
               {
                 HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
                 CHAR szText[500];
-                wsprintf(szText, "Wygrana X,a by zacząć od nowa, wciśnij start");
+                wsprintf(szText, "Wygrana X,aby zacząć od nowa, wciśnij start");
                 SetWindowText(hwndStatic, szText);
 
                 isGameOn = false;
@@ -104,6 +119,20 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
                 wsprintf(szText, "Start");
                 SetWindowText(hwndButton_start, szText);
                 for (int i = 0; i < 9; i++) { tab[i] = 10 + i; }
+              }
+              else if (isDraw) 
+              {
+                HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
+                CHAR szText[500];
+                wsprintf(szText, "Remis,aby zacząć od nowa, wciśnij start");
+                SetWindowText(hwndStatic, szText);
+
+                isGameOn = false;
+
+                for (int i = 0; i < 9; i++) { tab[i] = 10 + i; }
+                HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
+                wsprintf(szText, "Start");
+                SetWindowText(hwndButton_start, szText);
               }
             }
             //Ruch gracza O
@@ -126,6 +155,20 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
                 SetWindowText(hwndButton_start, szText);
                 for (int i = 0; i < 9; i++) { tab[i] = 10 + i; }
               }
+              else if (isDraw) 
+              {
+                HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
+                CHAR szText[500];
+                wsprintf(szText, "Remis,aby zacząć od nowa, wciśnij start");
+                SetWindowText(hwndStatic, szText);
+
+                isGameOn = false;
+
+                HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
+                wsprintf(szText, "Start");
+                SetWindowText(hwndButton_start, szText);
+                for (int i = 0; i < 9; i++) { tab[i] = 10 + i; }
+              }
             }
             SetWindowText(hwndButton, szText);
             isFirstPlayerTurn = !isFirstPlayerTurn;
@@ -138,6 +181,8 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
         if (isGameOn == false)
         {
           isGameOn = true;
+          isDraw = false;
+          lRuch = 0;
           HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC1);
           //HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
           CHAR szText[500];
