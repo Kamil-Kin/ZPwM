@@ -8,7 +8,7 @@ bool isFirstPlayerTurn = true;  //czyj ruch
 bool isDraw = false;  //czy remis
 int lRuch;  //liczba wykonanych ruchów
 int pole;   //oznaczenie pustego pola na planszy
-int lRuchPC;    //liczba wykonanych ruchów w grze z komputerem
+int lRuchPC = 0;    //liczba wykonanych ruchów w grze z komputerem
 
 int tab[9] = { 234, 45, 124, 547, 67, 34, 678, 768, 435 };
 //
@@ -63,7 +63,7 @@ bool CheckWinningCondition(HWND hwndDlg, HWND lParam, int znak)
     if (lRuch == 9) isDraw = true;
     return false;
   }
-  return false;
+  //return false;
 }
 //
 //sprawdzenie wygranej w grze z komputerem
@@ -134,7 +134,9 @@ void MovePC(HWND hwndDlg)
           tab[8] = 1;
         }
       }
+      return;
     }
+
     if (tab[i * 3] == 0 && tab[i * 3 + 2] == 0 && tab[i * 3 + 1] != 0 && tab[i * 3 + 1] != 1 ||
       tab[i * 3] == 1 && tab[i * 3 + 2] == 1 && tab[i * 3 + 1] != 0 && tab[i * 3 + 1] != 1)  //0 i 6 takie samo
     {
@@ -168,7 +170,9 @@ void MovePC(HWND hwndDlg)
           tab[7] = 1;
         }
       }
+      return;
     }
+
     if (tab[i * 3 + 1] == 0 && tab[i * 3 + 2] == 0 && tab[i * 3] != 0 && tab[i * 3] != 1 ||
       tab[i * 3 + 1] == 1 && tab[i * 3 + 2] == 1 && tab[i * 3] != 0 && tab[i * 3] != 1)  //3 i 6 takie samo
     {
@@ -202,7 +206,9 @@ void MovePC(HWND hwndDlg)
           tab[6] = 1;
         }
       }
+      return;
     }
+
     //sprawdzenie w pionie
     if (tab[i] == 0 && tab[i + 3] == 0 && tab[i + 6] != 0 && tab[i + 6] != 1 ||
       tab[i] == 1 && tab[i + 3] == 1 && tab[i + 6] != 0 && tab[i + 6] != 1)  //jeśli pole 0 i 3 takie same
@@ -237,7 +243,9 @@ void MovePC(HWND hwndDlg)
           tab[8] = 1;
         }
       }
+      return;
     }
+
     if (tab[i] == 0 && tab[i + 6] == 0 && tab[i + 3] != 0 && tab[i + 3] != 1 ||
       tab[i] == 1 && tab[i + 6] == 1 && tab[i + 3] != 0 && tab[i + 3] != 1)  //jeśli pole 0 i 6 takie same
     {
@@ -271,7 +279,9 @@ void MovePC(HWND hwndDlg)
           tab[5] = 1;
         }
       }
+      return;
     }
+
     if (tab[i + 3] == 0 && tab[i + 6] == 0 && tab[i] != 0 && tab[i] != 1 ||
       tab[i + 3] == 1 && tab[i + 6] == 1 && tab[i] != 0 && tab[i] != 1)  //jeśli pole 3 i 6 takie same
     {
@@ -305,8 +315,10 @@ void MovePC(HWND hwndDlg)
           tab[2] = 1;
         }
       }
+      return;
     }
   }
+
   //główna przekątna
   if (tab[0] == 0 && tab[4] == 0 && tab[8] != 0 && tab[8] != 1 ||
     tab[0] == 1 && tab[4] == 1 && tab[8] != 0 && tab[8] != 1)    //jeśli pola 0 i 4 takie same
@@ -318,7 +330,9 @@ void MovePC(HWND hwndDlg)
       SetWindowText(hwndButton9, szText);
       tab[8] = 1;
     }
+    return;
   }
+
   if (tab[0] == 0 && tab[8] == 0 && tab[4] != 0 & tab[4] != 1 ||
     tab[0] == 1 && tab[8] == 1 && tab[4] != 0 & tab[4] != 1)   //jeśli pola 0 i 8 takie same
   {
@@ -329,7 +343,9 @@ void MovePC(HWND hwndDlg)
       SetWindowText(hwndButton5, szText);
       tab[4] = 1;
     }
+    return;
   }
+
   if (tab[4] == 0 && tab[8] == 0 && tab[0] != 0 && tab[0] != 1 ||
     tab[4] == 1 && tab[8] == 1 && tab[0] != 0 && tab[0] != 1)   //jeśli pola 4 i 8 takie same
   {
@@ -340,6 +356,7 @@ void MovePC(HWND hwndDlg)
       SetWindowText(hwndButton1, szText);
       tab[0] = 1;
     }
+    return;
   }
   //druga przekątna
   if (tab[2] == 0 && tab[4] == 0 && tab[6] != 0 && tab[6] != 1 ||
@@ -351,8 +368,9 @@ void MovePC(HWND hwndDlg)
       wsprintf(szText, "O");
       SetWindowText(hwndButton7, szText);
       tab[6] = 1;
-    }
+    }return;
   }
+
   if (tab[2] == 0 && tab[6] == 0 && tab[4] != 0 && tab[4] != 1 ||
     tab[2] == 1 && tab[6] == 1 && tab[4] != 0 && tab[4] != 1)    //jeśli pola 2 i 6 takie same
   {
@@ -362,8 +380,9 @@ void MovePC(HWND hwndDlg)
       wsprintf(szText, "O");
       SetWindowText(hwndButton5, szText);
       tab[4] = 1;
-    }
+    }return;
   }
+
   if (tab[4] == 0 && tab[6] == 0 && tab[2] != 0 && tab[2] != 1 ||
     tab[4] == 1 && tab[6] == 1 && tab[2] != 0 && tab[2] != 1)    //jeśli pola 4 i 6 takie same
   {
@@ -373,182 +392,109 @@ void MovePC(HWND hwndDlg)
       wsprintf(szText, "O");
       SetWindowText(hwndButton3, szText);
       tab[2] = 1;
-    }
+    }return;
   }
 
-  CHAR szText[500];
-  wsprintf(szText, "O");
   bool isempty = true;   //czy plansza jest pusta
   while (isempty && lRuchPC != 9)
   {
-    pole = rand() % 9;
-    /*    if (pole == 0)
-    {
-      if (GetWindowTextLength(hwndButton1) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton1, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 1)
-    {
-      if (GetWindowTextLength(hwndButton2) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton2, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 2)
-    {
-      if (GetWindowTextLength(hwndButton3) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton3, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 3)
-    {
-      if (GetWindowTextLength(hwndButton4) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton4, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 4)
-    {
-      if (GetWindowTextLength(hwndButton5) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton5, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 5)
-    {
-      if (GetWindowTextLength(hwndButton6) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton6, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 6)
-    {
-      if (GetWindowTextLength(hwndButton7) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton7, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 7)
-    {
-      if (GetWindowTextLength(hwndButton8) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton8, szText);
-        isempty = false;
-      }
-    }
-    if (pole == 8)
-    {
-      if (GetWindowTextLength(hwndButton9) == 0)
-      {
-        tab[pole] = 1;
-        SetWindowText(hwndButton9, szText);
-        isempty = false;
-      }
-    }*/
+    pole = (rand() % 9);
 
     switch (pole)
     {
-    case 0: {
+    case 0:
       if (GetWindowTextLength(hwndButton1) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton1, szText);
         isempty = false;
       }
-    }
-            break;
-    case 1: {
+      break;
+    case 1:
       if (GetWindowTextLength(hwndButton2) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton2, szText);
         isempty = false;
       }
-    }
-            break;
-    case 2: {
+      break;
+    case 2:
       if (GetWindowTextLength(hwndButton3) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton3, szText);
         isempty = false;
       }
-    }
-            break;
-    case 3: {
+      break;
+    case 3:
       if (GetWindowTextLength(hwndButton4) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton4, szText);
         isempty = false;
       }
-    }
-            break;
-    case 4: {
+      break;
+    case 4:
       if (GetWindowTextLength(hwndButton5) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton5, szText);
         isempty = false;
       }
-    }
-            break;
-    case 5: {
+      break;
+    case 5:
       if (GetWindowTextLength(hwndButton6) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton6, szText);
         isempty = false;
       }
-    }
-            break;
-    case 6: {
+      break;
+    case 6:
       if (GetWindowTextLength(hwndButton7) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton7, szText);
         isempty = false;
       }
-    }
-            break;
-    case 7: {
+      break;
+    case 7:
       if (GetWindowTextLength(hwndButton8) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton8, szText);
         isempty = false;
       }
-    }
-            break;
-    case 8: {
+      break;
+    case 8:
       if (GetWindowTextLength(hwndButton9) == 0)
       {
+        CHAR szText[500];
+        wsprintf(szText, "O");
         tab[pole] = 1;
         SetWindowText(hwndButton9, szText);
         isempty = false;
       }
-    }
-            break;
+      break;
     }
   }
+
 }
 
 //Funkcja czyszcząca planszę po zakończeniu rozgrywki
@@ -734,9 +680,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
                 wsprintf(szText, "Start");
                 SetWindowText(hwndButton_start, szText);
               }
-
               MovePC(hwndDlg);
-
               //czy nastapiła wygrana gracza O
               if (CheckWinningConditionWithPC())
               {
