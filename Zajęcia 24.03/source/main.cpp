@@ -494,9 +494,7 @@ void MovePC(HWND hwndDlg)
       break;
     }
   }
-
 }
-
 //Funkcja czyszcząca planszę po zakończeniu rozgrywki
 void Clean_field(HWND hwndDlg) {
   for (int i = 0; i < 9; i++) {
