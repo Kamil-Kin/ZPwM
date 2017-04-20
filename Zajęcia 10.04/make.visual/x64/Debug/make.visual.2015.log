@@ -1,0 +1,7 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  main.cpp
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 10.04\source\main.cpp(80): warning C4311: 'type cast': pointer truncation from 'LRESULT (__cdecl *)(HWND,UINT,WPARAM,LPARAM)' to 'LONG'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 10.04\source\main.cpp(80): warning C4302: 'type cast': truncation from 'LRESULT (__cdecl *)(HWND,UINT,WPARAM,LPARAM)' to 'LONG'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 10.04\source\main.cpp(80): warning C4312: 'type cast': conversion from 'LONG' to 'WNDPROC' of greater size
+  make.visual.2015.vcxproj -> C:\Users\ADMIN\Documents\ZPwM_Git\ZPwM\Zajęcia 10.04\make.visual\\..\bin\Projekt1.exe
+  make.visual.2015.vcxproj -> C:\Users\ADMIN\Documents\ZPwM_Git\ZPwM\Zajęcia 10.04\make.visual\\..\bin\Projekt1.pdb (Partial PDB)
