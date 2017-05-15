@@ -1,0 +1,32 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  main.cpp
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(14): warning C4244: '=': conversion from 'double' to 'BYTE', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(24): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(26): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(27): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(28): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(29): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(34): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(35): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(36): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(37): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(40): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(61): warning C4244: 'initializing': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(168): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(168): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(171): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(171): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(174): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(174): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(177): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(177): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(180): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(180): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(183): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(183): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(186): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(186): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(189): warning C4244: 'argument': conversion from 'DWORD' to 'float', possible loss of data
+c:\users\admin\documents\zpwm_git\zpwm\zajęcia 12.05 dźwięk\source\main.cpp(189): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  make.visual.2015.vcxproj -> C:\Users\ADMIN\Documents\ZPwM_Git\ZPwM\Zajęcia 12.05 dźwięk\make.visual\\..\bin\Projekt1.exe
+  make.visual.2015.vcxproj -> C:\Users\ADMIN\Documents\ZPwM_Git\ZPwM\Zajęcia 12.05 dźwięk\make.visual\\..\bin\Projekt1.pdb (Partial PDB)
