@@ -76,30 +76,22 @@ bool CheckWinningConditionX()
 //
 //Funkcja czyszcz¹ca planszê po zakoñczeniu rozgrywki
 //
-void Clean_field(HWND hwndDlg) 
+void Clean_field(HDC hdc) 
 {
-  for (int i = 0; i < 9; i++) 
-  {
-    HWND hwndButton = GetDlgItem(hwndDlg, IDC_BUTTON1 + i);
-    CHAR szText[500];
-    wsprintf(szText, "");
-    SetWindowText(hwndButton, szText);
-    for (int i = 0; i < 9; i++) { tab[i] = 100 + i; }
-  }
+  Rectangle(hdc, 30, 30, 240, 240);
 }
-
 void drawBoard(HDC hdc) 
 {
   //linie pionowe
-  MoveToEx(hdc, 100, 30, NULL);
-  LineTo(hdc, 100, 240);
-  MoveToEx(hdc, 180, 30, NULL);
-  LineTo(hdc, 180, 240);
+  MoveToEx(hdc, 95, 30, NULL);
+  LineTo(hdc, 95, 240);
+  MoveToEx(hdc, 175, 30, NULL);
+  LineTo(hdc, 175, 240);
   //linie poziome
-  MoveToEx(hdc, 40, 100, NULL);
+  MoveToEx(hdc, 30, 100, NULL);
   LineTo(hdc, 240, 100);
-  MoveToEx(hdc, 40, 180, NULL);
-  LineTo(hdc, 240, 180);
+  MoveToEx(hdc, 30, 170, NULL);
+  LineTo(hdc, 240, 170);
 }
 void drawX(HDC hdc, int x, int y) 
 {
@@ -149,7 +141,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
             CHAR szText[500];
             wsprintf(szText, "Gra rozpoczêta");
             SetWindowText(hwndStatic, szText);
-            //Clean_field(hwndDlg);
+            
             HWND hwndButtonStart = GetDlgItem(hwndDlg, IDC_BUTTON_START);
             wsprintf(szText, "Stop");
             SetWindowText(hwndButtonStart, szText);
@@ -158,6 +150,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
             HDC hdc = GetDC(hwndDlg);
             HPEN hMyPen = CreatePen(PS_SOLID, 5, RGB(0, 0, 255));
             SelectObject(hdc, hMyPen);
+            Clean_field(hdc);
             drawBoard(hdc);
             DeleteObject(hMyPen);
             //TextOut(hdc, 0, 0, szText, strlen(szText));
@@ -195,16 +188,19 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
         int x = LOWORD(lParam); int y = HIWORD(lParam);
         if ((x > 30 && x < 240) && (y > 30 && y < 240))
         {
-          int fieldX = (x - 10) / 80;
-          int fieldY = (y - 10) / 80;
+          int fieldX = (x - 10) / 75;
+          int fieldY = (y - 10) / 75;
           if ((isFieldOccupiedByFirstPlayer[fieldX][fieldY] == false) &&
             (isFieldOccupiedBySecondPlayer[fieldX][fieldY] == false))
           {
-            x = fieldX * 80 + 60; 
-            y = fieldY * 80 + 60;
+            x = fieldX * 75 + 60; 
+            y = fieldY * 75 + 60;
             HDC hdc = GetDC(hwndDlg);
             if (isFirstPlayerTurn == true)
             {
+              HDC hdc = GetDC(hwndDlg);
+              HPEN hMyPen = CreatePen(PS_DASH, 5, RGB(180, 100, 80));
+              SelectObject(hdc, hMyPen);
               drawX(hdc, x, y);
               isFieldOccupiedByFirstPlayer[fieldX][fieldY] = true;
               tab2[fieldX][fieldY] = 'X';
@@ -235,6 +231,9 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
             }
             else
             {
+              HDC hdc = GetDC(hwndDlg);
+              HPEN hMyPen = CreatePen(PS_DOT, 3, RGB(150, 255, 0));
+              SelectObject(hdc, hMyPen);
               drawO(hdc, x, y);
               tab2[fieldX][fieldY] = 'O';
               isFieldOccupiedBySecondPlayer[fieldX][fieldY] = true;
@@ -274,8 +273,9 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
     case WM_PAINT:
     {
       HDC hdc = GetDC(hwndDlg);
-      HPEN hMyPen = CreatePen(PS_SOLID, 5, RGB(255, 0, 255));
+      HPEN hMyPen = CreatePen(PS_SOLID, 3, RGB(255, 0, 255));
       SelectObject(hdc, hMyPen);
+      //Clean_field(hdc);
       drawBoard(hdc);
       /*for (int iFieldX = 0; iFieldX < 3; iFieldX++)
       {
