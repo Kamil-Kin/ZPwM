@@ -26,7 +26,7 @@ bool CheckWinningCondition()
     //sprawdzenie poziomo
     tab[0][0] == tab[0][1] && tab[0][1] == tab[0][2] ||
     tab[1][0] == tab[1][1] && tab[1][1] == tab[1][2] ||
-    tab[2][0] == tab[1][1] && tab[1][1] == tab[2][2] ||
+    tab[2][0] == tab[2][1] && tab[2][1] == tab[2][2] ||
     //sprawdzenie pionowo
     tab[0][0] == tab[1][0] && tab[1][0] == tab[2][0] ||
     tab[0][1] == tab[1][1] && tab[1][1] == tab[2][1] ||
@@ -172,12 +172,12 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
         int x = LOWORD(lParam); int y = HIWORD(lParam);
         if ((x > 0 && x < 236) && (y > 0 && y < 217))
         {
-          int fieldX = (x - 0) / 78;
+          int fieldX = (x - 0) / 79;
           int fieldY = (y - 0) / 72;
           if ((isFieldOccupiedByFirstPlayer[fieldX][fieldY] == false) &&
             (isFieldOccupiedBySecondPlayer[fieldX][fieldY] == false))
           {
-            x = fieldX * 78 + 78 / 2;
+            x = fieldX * 79 + 79 / 2;
             y = fieldY * 72 + 72 / 2;
             HDC hdc = GetDC(hwndDlg);
             if (isFirstPlayerTurn == true)
