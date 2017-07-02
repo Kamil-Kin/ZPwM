@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  main.cpp
+c:\users\admin\desktop\vi semestr\zpwm_git\zpwm\lab10_zrownoleglenie\techniki_sse_avx\source\main.cpp(13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\admin\desktop\vi semestr\zpwm_git\zpwm\lab10_zrownoleglenie\techniki_sse_avx\source\main.cpp(73): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\admin\desktop\vi semestr\zpwm_git\zpwm\lab10_zrownoleglenie\techniki_sse_avx\source\main.cpp(74): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\admin\desktop\vi semestr\zpwm_git\zpwm\lab10_zrownoleglenie\techniki_sse_avx\source\main.cpp(75): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  make.visual.2015.vcxproj -> C:\Users\ADMIN\Desktop\VI Semestr\ZPwM_Git\ZPwM\Lab10_zrownoleglenie\techniki_sse_avx\make.visual\\..\bin\App.exe
+  make.visual.2015.vcxproj -> C:\Users\ADMIN\Desktop\VI Semestr\ZPwM_Git\ZPwM\Lab10_zrownoleglenie\techniki_sse_avx\make.visual\\..\bin\App.pdb (Full PDB)
