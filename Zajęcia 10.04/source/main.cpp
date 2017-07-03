@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <mmsystem.h>
 #include "res.h"
 
 bool isGameOn = false;  //czy gra zosta砤 zacz阾a
@@ -12,7 +13,6 @@ int a = 0;
 int tab[3][3] = {   { 234, 45, 124 },
                     { 547, 67, 34 },
                     { 678, 768, 435 } };
-
 
 HBITMAP hBitmapGameBoard;
 HBITMAP hBitmapX;
@@ -182,16 +182,18 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
             HDC hdc = GetDC(hwndDlg);
             if (isFirstPlayerTurn == true)
             {
+              PlaySound(MAKEINTRESOURCE(IDW_CAT), hInst, SND_RESOURCE);
               DrawX(hdc, x - 34, y - 38);
               isFieldOccupiedByFirstPlayer[fieldX][fieldY] = true;
               tab[fieldX][fieldY] = 'X';
               CheckRadioButton(hwndDlg, IDC_RADIO1, IDC_RADIO2, IDC_RADIO2);
               if (CheckWinningCondition()) 
               {
+                PlaySound(MAKEINTRESOURCE(IDW_PLAYER_ONE), hInst, SND_RESOURCE);
                 HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC_SHOW);
                 CHAR szText[500];
-                wsprintf(szText, "Wygrana X, aby zacz规 od nowa, wci渘ij start");
-                SetWindowText(hwndStatic, szText);
+                wsprintf(szText, "Wygrana X, aby zacz规 od nowa, wci渘ij ok i start");
+                MessageBox(0, szText, "Koniec", MB_OK);
                 isGameOn = false;
                 HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
                 wsprintf(szText, "Start");
@@ -202,7 +204,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
                 HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC_SHOW);
                 CHAR szText[500];
                 wsprintf(szText, "Remis,aby zacz规 od nowa, wci渘ij start");
-                SetWindowText(hwndStatic, szText);
+                MessageBox(0, szText, "Koniec", MB_OK);
                 isGameOn = false;
                 HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
                 wsprintf(szText, "Start");
@@ -211,16 +213,18 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
             }
             else
             {
+              PlaySound(MAKEINTRESOURCE(IDW_DOG), hInst, SND_RESOURCE);
               DrawO(hdc, x - 29, y - 27);
               isFieldOccupiedBySecondPlayer[fieldX][fieldY] = true;
               tab[fieldX][fieldY] = 'O';
               CheckRadioButton(hwndDlg, IDC_RADIO1, IDC_RADIO2, IDC_RADIO1);
               if (CheckWinningCondition())
               {
+                PlaySound(MAKEINTRESOURCE(IDW_GAME_OVER), hInst, SND_RESOURCE);
                 HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC_SHOW);
                 CHAR szText[500];
                 wsprintf(szText, "Wygrana O, aby zacz规 od nowa, wci渘ij start");
-                SetWindowText(hwndStatic, szText);
+                MessageBox(0, szText, "Koniec", MB_OK);
                 isGameOn = false;
                 HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
                 wsprintf(szText, "Start");
@@ -231,7 +235,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
                 HWND hwndStatic = GetDlgItem(hwndDlg, IDC_STATIC_SHOW);
                 CHAR szText[500];
                 wsprintf(szText, "Remis,aby zacz规 od nowa, wci渘ij start");
-                SetWindowText(hwndStatic, szText);
+                MessageBox(0, szText, "Koniec", MB_OK);
                 isGameOn = false;
                 HWND hwndButton_start = GetDlgItem(hwndDlg, IDC_BUTTON_START);
                 wsprintf(szText, "Start");
@@ -250,21 +254,7 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
     {
       HDC hdc = GetDC(hwndDlg);
       DrawBitmap(hdc);
-  /*
-      for (int iFieldX = 0; iFieldX < 3; iFieldX++)
-      {
-        for (int iFieldY = 0; iFieldY < 3; iFieldY++)
-        {
-          if (isFieldOccupiedByFirstPlayer[iFieldX][iFieldY] == true)
-          {
-            DrawX(hdc, iFieldX, iFieldY);
-          }
-          if (isFieldOccupiedBySecondPlayer[iFieldX][iFieldY] == true)
-          {
-            DrawO(hdc, iFieldX, iFieldY);
-          }
-        }
-      }*/
+
       ReleaseDC(hwndDlg, hdc);
       return DefWindowProc(hwndDlg, uMsg, wParam, lParam);
     }
